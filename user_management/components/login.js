@@ -1,8 +1,29 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
+/* import { useSession, signIn, signOut } from "next-auth/react"; */
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
 export default function Login(){
+    
+    const router = useRouter();
+    
+    /* const { data: session } = useSession()
 
+    useEffect(() => {
+        if (session) {
+        router.push("/")
+        }
+    }, [session])
+
+     
+    function iniciarSesionGoo(e){
+        e.preventDefault();
+        signIn('google', {callbackUrl:'https://paginaxxxxxx'})
+    } */
+
+   
     return(
         <>
             <div className={styles.main}>
@@ -14,80 +35,72 @@ export default function Login(){
                         className={styles.logo_Cice}
                         width={300}
                         height={150}
+                        priority
                         />
                     </div>
 
                     <div className={styles.login_form_container}>
+
                         <form className={styles.form_login} action="">
                             <div className={styles.titulo}>
                                 <h2>INICIAR SESION</h2>
                             </div>
+                            
                             <div className={styles.inputLog}>                            
+                            
                                 <div className={styles.labInput}>
                                     <label className={styles.label} htmlFor="">
                                         Email
                                     </label>
-                                    <input className={styles.input} type="text" name="" id="" />
-                                </div>
+                                    <input className={styles.input} type="text" name="" />
+                                </div>                                
+                                
                                 <div className={styles.labInput}>
                                     <label className={styles.label} htmlFor="">
                                     Contraseña
                                     </label>
-                                    <div className={styles.eye_password}>
-                                        <input
-                                            className="input-eye"
-                                            type="password"
-                                            name=""
-                                            id="password-input"
-                                        />
-                                        <svg
-                                            id="eye"
-                                            onclick="showpassword()"
-                                            width={35}
-                                            height={35}
-                                            fill="none"
-                                            stroke="currentColor"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                            strokeWidth={2}
-                                            viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                                            <path d="M12 9a3 3 0 1 0 0 6 3 3 0 1 0 0-6z" />
-                                        </svg>
-                                    </div>
-                                    <a id="FgPass" href="">
+                                    <input className={styles.input} type="password" name="" id="password_input"/>
+                                </div> 
+
+                            </div>
+                            
+                            <div className={styles.forgotPass}>                                    
+                                <Link href="/forgotPass" passHref legacyBehavior>
+                                    <a className={styles.FgPass} href="">
                                         ¿Olvidaste tu contraseña?
                                     </a>
-                                </div>                            
+                                </Link>                           
+                            </div>  
+
+                            <div className={styles.buttons}> 
+                                
+                                <button type="button" onClick={() => router.push('/api/auth')} className={styles.button}>Ingresar</button>
+                                
+                                <div className={styles.notUser}>                       
+                                    <p>¿No sos usuario?</p>
+                                </div>    
+                                
+                                <button type="button" onClick={() => router.push('/register')} className={styles.button}>Registrarse</button>
+
                             </div>
-                            <div className={styles.button_volver}>
-                                <button class="button">INGRESAR</button>
-                                <a>¿No sos usuario?</a>
-                                <button class="button">REGISTRARSE</button>
-                            </div>
+
+                            {/* {(session) ? (
+                                (  
+                                <div className={styles.contentSubmit }>
+                                    <button onClick={() => signOut('google')} type="submit" className={styles.btnInicioSesion}>Cerrar Sesion Google</button>
+                                </div>
+                                )
+                                ) : (                        
+                                (    
+                                <div className={styles.contentSubmit}>
+                                    <button onClick={iniciarSesionGoo} type="submit" className={styles.btnSubmit}>Iniciar Sesion</button>
+                                </div>
+                                ))
+                            }   */}   
+
                         </form>
                     </div>
                 </div>
-
-                {/* <div>
-                    <a
-                    href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                    By{' '}
-                    <Image
-                        src="/vercel.svg"
-                        alt="Vercel Logo"
-                        className={styles.vercelLogo}
-                        width={100}
-                        height={24}
-                        priority
-                    />
-                    </a>
-                </div> */}
 
             </div>  
         </>
