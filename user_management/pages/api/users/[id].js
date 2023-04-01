@@ -1,4 +1,4 @@
-import { pool } from "config/db";
+import { connection } from "models/db";
 
 export default async function handler(req, res) {
     switch (req.method) {
@@ -15,7 +15,7 @@ export default async function handler(req, res) {
   
   const getUser = async (req, res) => {
     try {
-      const result = await pool.query("SELECT * FROM user WHERE id = ?", [
+      const result = await connection.query("SELECT * FROM user WHERE id = ?", [
         req.query.id,
       ]);
       return res.status(200).json(result[0]);
@@ -26,7 +26,7 @@ export default async function handler(req, res) {
   
   const deleteUser = async (req, res) => {
     try {
-      await pool.query("DELETE FROM user WHERE id = ?", [req.query.id]);
+      await connection.query("DELETE FROM user WHERE id = ?", [req.query.id]);
       return res.status(204).json();
     } catch (error) {
       return res.status(500).json({ message: error.message });
@@ -36,7 +36,7 @@ export default async function handler(req, res) {
   const updateUser = async (req, res) => {
     try {
       console.log(req.body)
-      await pool.query("UPDATE user SET ? WHERE id = ?", [
+      await connection.query("UPDATE user SET ? WHERE id = ?", [
         req.body,
         req.query.id,
       ]);

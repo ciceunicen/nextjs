@@ -49,7 +49,7 @@ return (
 
         <div className={styles.login_form_container}>
 
-            <form className={styles.form_login} action="">
+            <form className={styles.form_login} action="/api/auth/register" method='POST'>
                 <div className={styles.titulo}>
                     <h2>REGISTRO</h2>
                 </div>
@@ -61,14 +61,14 @@ return (
                             <label className={styles.label} htmlFor="">
                                 Nombre
                             </label>
-                            <input className={styles.input} type="text" name="" required/>
+                            <input className={styles.input} type="text" name="name" required/>
                         </div> 
 
                         <div className={styles.labInput}>
                             <label className={styles.label} htmlFor="">
                                 Apellido
                             </label>
-                            <input className={styles.input} type="text" name=""/>
+                            <input className={styles.input} type="text" name="surname"/>
                         </div> 
                     </div>
                 
@@ -76,21 +76,29 @@ return (
                         <label className={styles.label} htmlFor="">
                             Email
                         </label>
-                        <input className={styles.input} type="text" name="" required/>
+                        <input className={styles.input} type="text" name="email" required/>
                     </div>                                
                     
                     <div className={styles.labInput}>
                         <label className={styles.label} htmlFor="">
                         Contraseña
                         </label>
-                        <input className={styles.input} type="password" name="" id="password_input" required/>
+                        <input className={styles.input} type="password" name="password" id="password_input" required/>
                     </div> 
 
                 </div>
                 
                 <div className={styles.buttons}>                    
-                    <button type="button" onClick={() => router.push('/api/users')} className={styles.button}>Registrarse</button>              
+                    <button type="submit" className={styles.button}>Registrarse</button>              
                 </div>
+              
+                <div className={styles.forgotPass}>                                    
+                    <Link href="/" passHref legacyBehavior>
+                    <a className={styles.FgPass} href="">
+                        ¿Ya tienes una cuenta?
+                    </a>
+                    </Link>                           
+                </div> 
 
                     {/* {(session) ? (
                         (  
