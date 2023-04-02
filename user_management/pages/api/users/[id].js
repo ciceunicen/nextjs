@@ -4,8 +4,8 @@ export default async function handler(req, res) {
     switch (req.method) {
       case "GET":
         return await getUser(req, res);
-      case "DELETE":
-        return await deleteUser(req, res);
+      /* case "DELETE":
+        return await deleteUser(req, res); */
       case "PUT":
         return await updateUser(req, res);
       default:
