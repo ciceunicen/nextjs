@@ -1,12 +1,9 @@
-import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
 /* import { useSession, signIn, signOut } from "next-auth/react"; */
 /* import { useEffect } from "react"; */
-
-
 
 
 export default function Register() {
@@ -27,12 +24,6 @@ export default function Register() {
 
 return (
 <>      
-<Head>
-<title>Registro de Usuarios</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="/logo.ico" />
-</Head> 
-
 <main>    
 
 <div className={styles.main}>

@@ -1,4 +1,4 @@
-import axios from "axios";
+import { connection } from "@/models/db";
 import { ShowUsers } from "components/ShowUsers";
 
 function adminUsers() {
@@ -8,8 +8,9 @@ function adminUsers() {
 }
 export default adminUsers;
 
+//TODO
 export const getServerSideProps = async (context) => {
-  const res = await axios.get("http://localhost:3000/api/users");
+  const res = await connection.get("http://localhost:3000/api/users");
 
   return {
     props: {
