@@ -10,18 +10,6 @@ export default function Register() {
 
   const router = useRouter();
     
-  /* const { data: session } = useSession()
-      useEffect(() => {
-          if (session) {
-          router.push("/")
-          }
-      }, [session])
-   
-      function iniciarSesionGoogle(e){
-          e.preventDefault();
-          signIn('google', {callbackUrl:'https://paginaxxxxxx'})
-      } */
-
 return (
 <>      
 <main>    

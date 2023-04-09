@@ -10,7 +10,7 @@ export default function loginHandler(req, res) {
 
   if (!email || !password) {
     res.status(400).json({
-      error: "(B)Missing email or password",
+      error: "Missing email or password",
     });
     return;
   }
@@ -24,15 +24,16 @@ export default function loginHandler(req, res) {
       }else{
         
         if (results.length === 0 || !bcryptjs.compareSync(password, results[0].password)) {          
-          return res.status(401).json({ error: "(B)Invalid email or password" });
+          return res.status(401).json({ error: "Invalid email or password" });
         }else{
-          const user = results[0];
-          
+          const user = results[0];   
+          const role = user.role;       
           //make the token
           const token = sign(
             {
               exp: Math.floor(Date.now() / 1000) + ONE_DAY_IN_SECONDS, // 1 dia
-              email, 
+              email,
+              role,               
             },
             process.env.JWT_SECRET);
           
@@ -40,14 +41,21 @@ export default function loginHandler(req, res) {
           const serialized = serialize('ciceToken', token,{
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', 
-            sameSite: 'lax',
+            sameSite: 'strict',
             maxAge: ONE_DAY_IN_SECONDS,
-            /* path: '/'  *///ruta donde sera entregado
-          }); 
+            path: '/',  
+          });
+          const data = {
+            user_id: user.id,
+            user_email: user.email,
+            user_name: user.name,
+            user_surname: user.surname,
+            user_rol: user.role,
+          };
+               
           // Set the cookie header and return a success message          
           res.setHeader('Set-Cookie', serialized);
-          res.status(200).json({message: '(B)login succesfully',});
-          return;
+          return res.status(200).json(data);          
         }
       }   
     }

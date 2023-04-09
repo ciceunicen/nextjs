@@ -34,21 +34,20 @@ export default function Home() {
         password: data.get('password'),
       }),
     })
-    console.log(response);
+  
 
-    if (response.ok) {
-      console.log('(F)Logged in');
-      router.push("/dashboard");      
+    if (response.ok) {           
+      router.push("/dashboard");            
     } else {
       switch (response.status) {
         case 401:
-          console.log("(F)Email o contraseña invalidos");
+          console.log("Email o contraseña invalidos");
           break;
         case 500:
-          console.log("(F)Error interno del servidor");
+          console.log("(Error interno del servidor");
           break;
         case 400:
-          console.log("(F)Se deben completar todos los campos");
+          console.log("Se deben completar todos los campos");
           break;
         default:
           break;
