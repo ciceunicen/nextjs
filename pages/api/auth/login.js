@@ -1,23 +1,63 @@
-import { connection } from "models/db";
+import { connection } from "models/db"
+import bcryptjs from "bcryptjs";
+import { sign } from "jsonwebtoken";
+import { serialize } from "cookie";
 
-export default async function Login(req, res) {
-    switch (req.method) {
-        case "POST":
-        return await logUser(req, res);        
-        default:
-        return res.status(400).json({ message: "Requerimiento Erroneo" });
+const ONE_DAY_IN_SECONDS = 86400;
+
+export default function loginHandler(req, res) {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    res.status(400).json({
+      error: "Missing email or password",
+    });
+    return;
+  }
+
+  connection.query(
+    "SELECT * FROM user WHERE email = ?",
+    [email],
+    (error, results) => {
+      if (error) {
+        return res.status(500).json({ error });        
+      }else{
+        
+        if (results.length === 0 || !bcryptjs.compareSync(password, results[0].password)) {          
+          return res.status(401).json({ error: "Invalid email or password" });
+        }else{
+          const user = results[0];   
+          const role = user.role;       
+          //make the token
+          const token = sign(
+            {
+              exp: Math.floor(Date.now() / 1000) + ONE_DAY_IN_SECONDS, // 1 dia
+              email,
+              role,               
+            },
+            process.env.JWT_SECRET);
+          
+          //For greater security I apply security to the cookie with the serialize method
+          const serialized = serialize('ciceToken', token,{
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', 
+            sameSite: 'strict',
+            maxAge: ONE_DAY_IN_SECONDS,
+            path: '/',  
+          });
+          const data = {
+            user_id: user.id,
+            user_email: user.email,
+            user_name: user.name,
+            user_surname: user.surname,
+            user_rol: user.role,
+          };
+               
+          // Set the cookie header and return a success message          
+          res.setHeader('Set-Cookie', serialized);
+          return res.status(200).json(data);          
+        }
+      }   
     }
+  );
 }
-
-
-//TODO
-const logUser = async (req, res) => {
-    try {
-      const result = await connection.query("SELECT ? FROM user", [
-        req.query.email,
-      ]);
-      return res.status(200).json(result[0]);
-    } catch (error) {
-      return res.status(500).json({ message: error.message });
-    }
-  };
