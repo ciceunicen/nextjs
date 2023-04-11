@@ -121,21 +121,7 @@ export default function Home() {
               </div>
               
               <button type="button" onClick={() => router.push('/register')} className={styles.button}>Registrarse</button>
-            </div>
-
-              {/* {(session) ? (
-                  (  
-                  <div className={styles.contentSubmit }>
-                      <button onClick={() => signOut('google')} type="submit" className={styles.btnInicioSesion}>Cerrar Sesion Google</button>
-                  </div>
-                  )
-                  ) : (                        
-                  (    
-                  <div className={styles.contentSubmit}>
-                      <button onClick={iniciarSesionGoogle} type="submit" className={styles.btnSubmit}>Iniciar Sesion</button>
-                  </div>
-                  ))
-              }   */}   
+            </div>  
 
           </form>
         </div>
