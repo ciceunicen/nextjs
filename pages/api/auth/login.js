@@ -3,7 +3,7 @@ import bcryptjs from "bcryptjs";
 import { sign } from "jsonwebtoken";
 import { serialize } from "cookie";
 
-const ONE_DAY_IN_SECONDS = 86400;
+const NINE_HOURS_IN_SECONDS = 32400;
 
 export default function loginHandler(req, res) {
   const { email, password } = req.body;
@@ -31,7 +31,7 @@ export default function loginHandler(req, res) {
           //make the token
           const token = sign(
             {
-              exp: Math.floor(Date.now() / 1000) + ONE_DAY_IN_SECONDS, // 1 dia
+              exp: Math.floor(Date.now() / 1000) + NINE_HOURS_IN_SECONDS, // 9 HORAS
               email,
               role,               
             },
@@ -42,7 +42,7 @@ export default function loginHandler(req, res) {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production', 
             sameSite: 'strict',
-            maxAge: ONE_DAY_IN_SECONDS,
+            maxAge: NINE_HOURS_IN_SECONDS,
             path: '/',  
           });
           const data = {
