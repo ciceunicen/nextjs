@@ -1,4 +1,4 @@
-import { connection } from "@/models/db";
+/* import { connection } from "@/models/db";
 import { ShowUsers } from "components/ShowUsers";
 
 export default function adminUsers() {
@@ -16,4 +16,4 @@ export const getServerSideProps = async (context) => {
       users: res.data,
     },
   };
-};
+}; */

@@ -1,4 +1,4 @@
-import { connection } from "models/db";
+/* import { connection } from "models/db";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -37,4 +37,4 @@ const saveUser = async (req, res) => {
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
-};
+}; */

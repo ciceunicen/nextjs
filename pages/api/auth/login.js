@@ -34,8 +34,7 @@ export default function loginHandler(req, res) {
               exp: Math.floor(Date.now() / 1000) + NINE_HOURS_IN_SECONDS, // 9 HORAS
               email,
               role,               
-            },
-            process.env.JWT_SECRET);
+            }, process.env.JWT_SECRET);
           
           //For greater security I apply security to the cookie with the serialize method
           const serialized = serialize('ciceToken', token,{

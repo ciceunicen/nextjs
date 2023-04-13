@@ -2,8 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
-/* import { useSession, signIn, signOut } from "next-auth/react"; */
-/* import { useEffect } from "react"; */
 
 
 export default function Register() {
@@ -20,6 +18,7 @@ return (
             <Image
             src="/logo cice con slogan.png"
             alt="CICE Logo"
+            className={styles.logo_Cice}
             width={300}
             height={150}
             priority
@@ -71,27 +70,13 @@ return (
                     <button type="submit" className={styles.button}>Registrarse</button>              
                 </div>
               
-                <div className={styles.forgotPass}>                                    
+                <div className={styles.already_have_an_account}>                                    
                     <Link href="/" passHref legacyBehavior>
                     <a className={styles.FgPass} href="">
                         ¿Ya tienes una cuenta?
                     </a>
                     </Link>                           
-                </div> 
-
-                    {/* {(session) ? (
-                        (  
-                        <div className={styles.contentSubmit }>
-                            <button onClick={() => signOut('google')} type="submit" className={styles.btnInicioSesion}>Cerrar Sesion Google</button>
-                        </div>
-                        )
-                        ) : (                        
-                        (    
-                        <div className={styles.contentSubmit}>
-                            <button onClick={iniciarSesionGoogle} type="submit" className={styles.btnSubmit}>Iniciar Sesion</button>
-                        </div>
-                        ))
-                    }   */}   
+                </div>                       
 
                 </form>
             </div>
