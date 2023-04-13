@@ -23,7 +23,7 @@ export default function Navbar({props}) {
         <ul className={styles.ul}>
             <li className={styles.li}><Link href="#">Proyectos</Link></li>
             <li className={styles.li}><p>{ props }</p></li>
-            <li className={styles.li} onClick={()=>logout()}><Link href="/" >Logout</Link></li>
+            <li className={styles.li}><Link href="/" onClick={()=>logout()}>Logout</Link></li>
         </ul>
     </div>    
     )
