@@ -4,27 +4,48 @@ import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
 import { useState } from 'react';
+import { toast} from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
-
+  
   const router = useRouter();
+  const customId = "custom-id-yes";
 
+  const notifyErrorPass = () => {
+    toast.error("Usuario y/o contraseña erroneos", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+      theme: 'colored'
+    });     
+  };
+
+  const notifyErrorServer = () => {
+    toast.error("Error interno del servidor", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+      theme: 'colored'
+    });     
+  };
+  
+  
   const [credentials, setCredentials] = useState ({
     email: '',
     password: ''
   });
-
+  
   const handleChange = (e)=> {  
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value
     });
   };
-
+  
+  
   const handleSubmit = async(e)=>{
-    e.preventDefault();  
+    e.preventDefault();      
     const data = new FormData(e.currentTarget);
     const response = await fetch("/api/auth/login",{
       method:'POST',
@@ -34,28 +55,28 @@ export default function Home() {
         password: data.get('password'),
       }),
     })
-  
-
+    
+    
     if (response.ok) {           
       router.push("/dashboard");            
     } else {
-      switch (response.status) {
-        case 401:
-          console.log("Email o contraseña invalidos");
+        switch (response.status) {
+        case 401:          
+          {notifyErrorPass()}
           break;
         case 500:
-          console.log("(Error interno del servidor");
+          {notifyErrorServer()}
           break;
         case 400:
           console.log("Se deben completar todos los campos");
           break;
         default:
           break;
-      }    
-    };
+        }    
+      };
   }
-
-  return (
+          
+return (
   <>    
   <main>      
     <div className={styles.main}>    
@@ -84,7 +105,7 @@ export default function Home() {
                 </label>
                   <input
                     className={styles.input}
-                    type="text"
+                    type="email"
                     name="email"
                     onChange={handleChange}
                     required
@@ -100,6 +121,8 @@ export default function Home() {
                   type="password"
                   name="password"
                   onChange={handleChange}
+                  minLength={8}
+                  maxLength={20}
                   required
                 />
               </div> 
@@ -120,10 +143,9 @@ export default function Home() {
                 <p>¿No sos usuario?</p>
               </div>
               
-              <button type="button" onClick={() => router.push('/register')} className={styles.button}>Registrarse</button>
+              <button type="button" onClick={() => router.push('/register')} className={styles.button}>Registrarse</button>              
             </div>  
-
-          </form>
+          </form>          
         </div>
       </div>
     </div>

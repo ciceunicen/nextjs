@@ -24,14 +24,14 @@ export default async function handler(req, res) {
     }
   };
   
-  const deleteUser = async (req, res) => {
+ /*  const deleteUser = async (req, res) => {
     try {
       await connection.query("DELETE FROM user WHERE id = ?", [req.query.id]);
       return res.status(204).json();
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
-  };
+  }; */
   
   const updateUser = async (req, res) => {
     try {
