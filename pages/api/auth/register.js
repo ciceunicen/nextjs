@@ -35,7 +35,7 @@ const saveUser = async (req, res) => {
             const hash = bcryptjs.hashSync(password, salt);
 
             const result = await connection.query("INSERT INTO user ( email, password, name, surname, role) VALUES (?, ?, ?, ?, ?)",
-                [ email, hash, name, surname, 2 ]);            
+                [ email, hash, name, surname, 4 ]);            
             
             return res.status(200).json({ ...req.body, id: result.insertId });
             

@@ -23,7 +23,12 @@ import Navbar from "@/components/Navbar";
       <>
         <Navbar props= {user.email}/>
         <div className='center'>                             
-          <h2> Seccion Dashboard del usuario {user.email} | Rol {user.role}</h2>    
+          <h2> Seccion Dashboard del usuario {user.email} 
+          , Rol: {user.role === 1 && "Super Admin"}
+            {user.role === 2 && "Admin"} 
+            {user.role === 3 && "Emprendedor"}
+            {user.role === 4 && "Defecto"}
+          </h2>
           <br/>
           <h4> En la consola de desarrollador del navegador (f12), se puede verificar </h4>
           <br/>
