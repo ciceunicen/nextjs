@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     }
   }; */
   
-  const updateUser = async (req, res) => {
+  /* const updateUser = async (req, res) => {
     try {
       console.log(req.body)
       await connection.query("UPDATE user SET ? WHERE id = ?", [
@@ -44,4 +44,4 @@ export default async function handler(req, res) {
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
-  };
+  }; */

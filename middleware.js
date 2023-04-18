@@ -10,6 +10,11 @@ export /* async */ function middleware(request){
             return NextResponse.redirect(new URL("/",request.url));
         }
     }
+    if( request.nextUrl.pathname.includes("/api/users")){
+        if (jwt === undefined){
+            return NextResponse.redirect(new URL("/",request.url));
+        }
+    }
         /* try{
             //TODO : se desea verificar CONTENIDO del token, no solo su existencia
             //no funciona el jwtVerify de jose.
