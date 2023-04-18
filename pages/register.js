@@ -15,7 +15,8 @@ export default function Register() {
     toast.error("Usuario y/o contraseña erroneos", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
 
@@ -23,7 +24,8 @@ export default function Register() {
     toast.error("El mail ingresado está en uso", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
 
@@ -31,15 +33,35 @@ export default function Register() {
     toast.error("Error interno del servidor", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
 
+  const notifyErrorPasswordLength = () => {
+    toast.error("La contraseña debe tener al menos 8 caracteres y 20 como máximo", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+      theme: 'colored',
+      draggable : false
+    });     
+  };
+
+  const notifyErrorEmail = () => {
+    toast.error("El mail no es valido", {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+      theme: 'colored',
+      draggable : false
+    });     
+  };
+  
   const notifySuccesRegister = () => {
     toast.success("Te has registrado correctamente", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
 
@@ -65,6 +87,12 @@ export default function Register() {
             switch (response.status) {
             case 400:          
                 {notifyErrorPassword()}
+                break;
+            case 401:          
+                {notifyErrorPasswordLength()}
+                break;
+            case 402:          
+                {notifyErrorEmail()}
                 break;
             case 409:
                 {notifyErrorAccUsed()}
@@ -139,7 +167,7 @@ return (
                         </label>
                         <input
                             className={styles.input}
-                            type="email"
+                            type="text"
                             name="email" 
                             required
                         />
@@ -153,8 +181,6 @@ return (
                             className={styles.input}
                             type="password"
                             name="password"                            
-                            minLength={8}
-                            maxLength={20}
                             id="password_input"
                             required
                         />

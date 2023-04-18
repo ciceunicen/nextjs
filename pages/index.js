@@ -18,7 +18,8 @@ export default function Home() {
     toast.error("Usuario y/o contraseña erroneos", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
 
@@ -26,7 +27,8 @@ export default function Home() {
     toast.error("Error interno del servidor", {
       position: toast.POSITION.TOP_CENTER,
       toastId: customId,
-      theme: 'colored'
+      theme: 'colored',
+      draggable : false
     });     
   };
   
@@ -56,7 +58,8 @@ export default function Home() {
       }),
     })
     
-    
+    console.log(response.status);
+
     if (response.ok) {           
       router.push("/dashboard");            
     } else {
@@ -120,9 +123,7 @@ return (
                   className={styles.input}
                   type="password"
                   name="password"
-                  onChange={handleChange}
-                  minLength={8}
-                  maxLength={20}
+                  onChange={handleChange}                 
                   required
                 />
               </div> 

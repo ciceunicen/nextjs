@@ -21,7 +21,7 @@ import Navbar from "@/components/Navbar";
   return (
     
       <>
-        <Navbar props= {user.email}/>
+        <Navbar user= {user.email} role= {user.role}/>
         <div className='center'>                             
           <h2> Seccion Dashboard del usuario {user.email} 
           , Rol: {user.role === 1 && "Super Admin"}

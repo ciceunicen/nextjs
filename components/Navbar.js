@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
 
-export default function Navbar({props}) {
+export default function Navbar({user, role}) {
 
     const logout = async ()=>{
         const response = await axios.post("/api/auth/logout");        
@@ -22,7 +22,8 @@ export default function Navbar({props}) {
             />        
         <ul className={styles.ul}>
             <li className={styles.li}><Link href="#">Proyectos</Link></li>
-            <li className={styles.li}><p>{ props }</p></li>
+            <li className={styles.li}><p>{ user }</p></li>
+            {role===1 && <li className={styles.li}><Link href="/api/">Listar Usuarios</Link></li>}
             <li className={styles.li}><Link href="/" onClick={()=>logout()}>Logout</Link></li>
         </ul>
     </div>    

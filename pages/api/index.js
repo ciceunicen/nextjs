@@ -1,4 +1,4 @@
-/* import { connection } from "models/db";
+import { connection } from "models/db";
 
 export default async function handler(req, res) {
   switch (req.method) {
@@ -20,7 +20,7 @@ const getUsers = async (req, res) => {
   }
 };
 
-const saveUser = async (req, res) => {
+/*const saveUser = async (req, res) => {
   try {
     
     //OJO ACA VER LOS CAMPOS QUE CORRESPONDEN AL POST

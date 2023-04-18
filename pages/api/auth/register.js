@@ -1,3 +1,5 @@
+
+
 import { connection } from "models/db";
 import bcryptjs from "bcryptjs";
 
@@ -12,9 +14,30 @@ export default async function handler(req, res) {
       }
 }
 
+function validateEmail(email){
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(String(email).toLowerCase());
+}
+
 const saveUser = async (req, res) => {
     
     const { email, password, name, surname} = req.body;
+
+    const isValidEmail = validateEmail(email);
+
+    if (password.length < 8 || password.length > 20){
+        res.status(401).json({
+            error: "La contraseña debe tener al menos 8 caracteres y 20 como maximo",
+        });
+        return;
+    }
+
+    if (!isValidEmail){
+        res.status(402).json({
+            error: "Email no valido",
+        });
+        return;
+    }
 
     if (!email || !password) {
         res.status(400).json({
