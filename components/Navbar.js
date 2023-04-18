@@ -23,7 +23,7 @@ export default function Navbar({user, role}) {
         <ul className={styles.ul}>
             <li className={styles.li}><Link href="#">Proyectos</Link></li>
             <li className={styles.li}><p>{ user }</p></li>
-            {role===1 && <li className={styles.li}><Link href="/api/users/">Listar Usuarios</Link></li>}
+            {role===1 && <li className={styles.li}><Link href="/api/usuarios/">Listar Usuarios</Link></li>}
             <li className={styles.li}><Link href="/" onClick={()=>logout()}>Logout</Link></li>
         </ul>
     </div>    

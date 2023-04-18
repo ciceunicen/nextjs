@@ -1,29 +1,46 @@
 ### get all users
-
-GET http://localhost:3000/api/users
+GET http://localhost:3000/api/usuarios
 
 ### get a single user
-GET http://localhost:3000/api/users/1
+GET http://localhost:3000/api/usuarios/{1}
 
 ### create a single user
-POST http://localhost:3000/api/users
+POST http://localhost:3000/api/usuarios
 Content-Type: application/json
-
 {
-  "email": "something email",
-  "password": "something password",
   "name": "something name",
   "surname": "something surname"
+  "email": "something email",
+  "password": "something password",
 }
 
 
-### update a single user
-PUT http://localhost:3000/api/users/1
+### login
+POST http://localhost:3000/api/auth/login
 Content-Type: application/json
+{
+  "email": "this is my new email"
+  "password": "this is my new password"
+}
 
+
+------------------------------------------------------------------------------------------------
+TODO
+
+### update a single user
+PUT http://localhost:3000/api/usuarios/{1}/role
+Content-Type: application/json
 {
   "name": "this is my new name"
 }
 
-### delete a single user
-DELETE http://localhost:3000/api/users/14
+### create a single entrepreneur
+POST http://localhost:3000/api/auth/emprendedor
+Content-Type: application/json
+
+{
+ 
+}
+
+### get all roles
+GET http://localhost:3000/api/roles
