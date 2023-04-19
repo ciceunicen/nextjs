@@ -1,27 +1,72 @@
 .section{
     background-color: #245313;   
-    align-items: center;
+    width: 280px;
+    height: 100vh;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    flex-flow: row wrap;
-    padding: 1em 0; 
+    flex-direction: column;            
     color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+}
+
+.userInf{
+    background-color:#15330b;
+    width: 280px;
+    height: 220px;    
+    top:0;
+    margin: 0;
+    padding: 0;
+}
+
+.logo_Cice{
+    position: absolute;
+    margin: 20px 0 0 20px;
+}
+
+.userName{    
+    margin-top: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;    
+}
+
+.user{        
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;    
+}
+
+.options{
+    display: block;    
+    width: 280px;
+    height: auto;
+}
+
+.option_title{
+    margin: 50px 0 0 20px;
+    color: #949494;
+}
+
+.logout{
+    display: flex;
+    justify-content: flex-start;
+    margin: 30px 0px 0px 40px
 }
 
 .ul {
     list-style-type: none;
     display: flex;
-    flex-flow: row nowrap;
-    width: 500px;
+    flex-direction: column;    
     margin: 0;
     padding: 0;
 }
 
 .ul .li {
     flex-grow: 1;
-    text-align: center;
-    padding: 15px 10px;    
+    text-align: start;
+    margin: 30px 0 0 40px;
 }
 
 

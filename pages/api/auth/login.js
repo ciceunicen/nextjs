@@ -27,13 +27,17 @@ export default function loginHandler(req, res) {
           return res.status(401).json({ error: "Invalid email or password" });
         }else{
           const user = results[0];   
-          const role = user.role;       
+          const role = user.role;
+          const name = user.name;
+          const surname = user.surname;       
           //make the token
           const token = sign(
             {
               exp: Math.floor(Date.now() / 1000) + NINE_HOURS_IN_SECONDS, // 9 HORAS
               email,
-              role,               
+              role,
+              name,
+              surname,              
             }, process.env.JWT_SECRET);
           
           //For greater security I apply security to the cookie with the serialize method

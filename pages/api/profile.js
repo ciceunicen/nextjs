@@ -10,8 +10,8 @@ export default function profileHandler(req, res){
   }else{
     //if the token is valid I extract the user, the role and return them
     try {
-        const { email, role } = verify(ciceToken, process.env.JWT_SECRET);
-        res.json({ email, role });
+        const { email, role, name, surname } = verify(ciceToken, process.env.JWT_SECRET);
+        res.json({ email, role, name, surname });
         return res;
     } catch (error) {
         return res.status(401).json({error: "Token Invalido"});
