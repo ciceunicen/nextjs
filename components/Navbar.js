@@ -27,6 +27,15 @@ export default function Navbar({user, role, name, surname}) {
                 { user } 
             </div>
         </div>
+        <div className={styles.avatarContainer}>
+            <Image                
+                src="/avatar4.png"
+                alt="avatar"
+                width={72}
+                height={72}
+                className={styles.avatar}
+            />
+        </div>
         <div className={styles.options}>
             <div className={styles.option_title}>
                 <p>ACCESO</p>
