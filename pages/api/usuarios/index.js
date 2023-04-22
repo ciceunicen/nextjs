@@ -21,24 +21,28 @@ const getUsers = async (req, res) => {
   }
 }
 
+//verify email address vality (formatted)
 function validateEmail(email){
   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(String(email).toLowerCase());
 }
 
+//Register a new user
 const saveUser = async (req, res) => {
   
   const { email, password, name, surname} = req.body;
 
   const isValidEmail = validateEmail(email);
   
+  //verify password lenght
   if (password.length < 8 || password.length > 20){
       res.status(401).json({
           error: "La contraseña debe tener al menos 8 caracteres y 20 como maximo",
       });
       return;
   }
-
+  
+  //check email validity
   if (!isValidEmail){
       res.status(402).json({
           error: "Email no valido",
@@ -46,6 +50,7 @@ const saveUser = async (req, res) => {
       return;
   }
 
+  //check email and password completeness
   if (!email || !password) {
       res.status(400).json({
       error: "Falta email o password",
@@ -53,6 +58,7 @@ const saveUser = async (req, res) => {
       return;
   }
 
+  //check email is in use ?
   const verifExistMail = await connection.query("SELECT * FROM user WHERE email = ?", [email]);
   if (verifExistMail.length > 0){
       res.status(409).json({
@@ -64,8 +70,10 @@ const saveUser = async (req, res) => {
           const salt = bcryptjs.genSaltSync(10);
           const hash = bcryptjs.hashSync(password, salt);
 
+          //insert new user in the database, default role is DEFAULT ... and his code is number 4 (code from role table definition)
+          //CICEDEV-174
           const result = await connection.query("INSERT INTO user ( email, password, name, surname, role) VALUES (?, ?, ?, ?, ?)",
-              [ email, hash, name, surname, 4 ]);            
+            [ email, hash, name, surname, 4 ]);            
           
           return res.status(200).json({ ...req.body, id: result.insertId });
           
