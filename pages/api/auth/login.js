@@ -57,8 +57,8 @@ export default function loginHandler(req, res) {
           };
                
           // Set the cookie header and return a success message          
-          res.setHeader('Set-Cookie', serialized);
-          return res.status(200).json(data);          
+          res.setHeader('Set-Cookie', serialized);          
+          return res.status(200).json(data);   
         }
       }   
     }

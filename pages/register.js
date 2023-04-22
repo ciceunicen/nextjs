@@ -8,67 +8,80 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Register() {
 
-  const router = useRouter();
-  const customId = "custom-id-yes";
+    const router = useRouter();
+    const customId = "custom-id-yes";
 
-  const notifyErrorPassword = () => {
-    toast.error("Usuario y/o contraseña erroneos", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
+    const notifyErrorPassword = () => {
+        toast.error("Usuario y/o contraseña erroneos", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
 
-  const notifyErrorAccUsed = () => {
-    toast.error("El mail ingresado está en uso", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
+    const notifyErrorAccUsed = () => {
+        toast.error("El mail ingresado está en uso", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
 
-  const notifyErrorServerError = () => {
-    toast.error("Error interno del servidor", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
+    const notifyErrorServerError = () => {
+        toast.error("Error interno del servidor", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
 
-  const notifyErrorPasswordLength = () => {
-    toast.error("La contraseña debe tener al menos 8 caracteres y 20 como máximo", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
+    const notifyErrorPasswordLength = () => {
+        toast.error("La contraseña debe tener al menos 8 caracteres y 20 como máximo", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
 
-  const notifyErrorEmail = () => {
-    toast.error("El mail no es valido", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
-  
-  const notifySuccesRegister = () => {
-    toast.success("Te has registrado correctamente", {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    });     
-  };
+    const notifyErrorEmail = () => {
+        toast.error("El mail no es valido", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
+    
+    const notifySuccesRegister = () => {
+        toast.success("Bienvenido/a ! Te has registrado correctamente", {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+        });     
+    };
+
+    async function registerToLogin(user, password) {                
+        const response = await fetch("/api/auth/login",{
+            method:'POST',
+            headers:{ 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: user,
+                password: password,
+            }),
+        })
+        router.push("/dashboard");
+    };
+    
 
     const handleSubmit = async(e)=>{
         e.preventDefault();      
         const data = new FormData(e.currentTarget);
-        const response = await fetch("/api/usuarios",{
+        const response = await fetch("/api/usuarios/",{
             method:'POST',
             headers:{ 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -79,10 +92,10 @@ export default function Register() {
             }),
         })
         
-
+        console.log(data.get('email'), data.get('password'));
         if (response.ok) {    
             {notifySuccesRegister()};
-            router.push("/");           
+            registerToLogin(data.get('email'), data.get('password'));
         }else {
             switch (response.status) {
             case 400:          
@@ -103,8 +116,8 @@ export default function Register() {
             default:           
                 break;
             }    
-        };
-    }
+    };
+}
 
 
 

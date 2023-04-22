@@ -73,9 +73,14 @@ const saveUser = async (req, res) => {
           //insert new user in the database, default role is DEFAULT ... and his code is number 4 (code from role table definition)
           //CICEDEV-174
           const result = await connection.query("INSERT INTO user ( email, password, name, surname, role) VALUES (?, ?, ?, ?, ?)",
-            [ email, hash, name, surname, 4 ]);            
-          
-          return res.status(200).json({ ...req.body, id: result.insertId });
+            [ email, hash, name, surname, 4 ]);                      
+            
+          const data = {
+            email:email,
+            password:hash,
+          }
+          console.log(data);          
+          return res.status(200).json(data);
           
       }catch (error) {
           return res.status(500).json({ message: error.message });
