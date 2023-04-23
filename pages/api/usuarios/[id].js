@@ -18,6 +18,7 @@ export default async function handler(req, res) {
       const result = await connection.query("SELECT * FROM user WHERE id = ?", [
         req.query.id,
       ]);
+      connection.end();
       return res.status(200).json(result[0]);
     } catch (error) {
       return res.status(500).json({ message: error.message });

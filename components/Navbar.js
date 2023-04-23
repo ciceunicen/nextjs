@@ -9,12 +9,6 @@ export default function Navbar({user, role, name, surname}) {
         const response = await axios.post("/api/auth/logout");        
     }
     
-    //detalle estetico solo con fines de presentacion del dashboard
-    //esta constante pasa un valor entre 0 y 3 para que se seleccione
-    //al azar un avatar en el dashboard. Cuando se implemente esto se debe 
-    //eliminar ya que ira la imagen que seleccione el usuario.
-    const avatarImageRandom = Math.floor(Math.random() * 4);
-
     return(    
     <div className={styles.section}>
         <div className={styles.userInf}>
@@ -33,14 +27,14 @@ export default function Navbar({user, role, name, surname}) {
                 { user } 
             </div>
         </div>
-        <div className={styles.avatarContainer}>
-            {/* la imagen en produccion sera la que elija el usuario y debera almacenarse en la DB (crear atributo para tal fin) */}
+        <div className={styles.avatarContainer}>           
             <Image                
-                src={"/avatar" + avatarImageRandom + ".png"}
+                src={"/avatar0.png"}
                 alt="avatar"
                 width={72}
                 height={72}
                 className={styles.avatar}
+                priority
             />
         </div>
         <div className={styles.options}>
@@ -61,9 +55,19 @@ export default function Navbar({user, role, name, surname}) {
                 
                 {role===1 && 
                     <div className={styles.li}>
-                        <Link href="/api/usuarios/">Listar Usuarios</Link>
+                        <Link href="#">Listar Usuarios</Link>
                     </div>
-                }                
+                }
+                {(role===1 || role === 2) && 
+                    <div className={styles.li}>
+                        <Link href="#">Turnos Solicitados</Link>
+                    </div>
+                }
+                {role===3 && 
+                    <div className={styles.li}>
+                        <Link href="#">Solicitar Entrevista</Link>
+                    </div>
+                }                     
                 
             </ul>
         </div>

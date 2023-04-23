@@ -63,4 +63,5 @@ export default function loginHandler(req, res) {
       }   
     }
   );
+  connection.end();
 }

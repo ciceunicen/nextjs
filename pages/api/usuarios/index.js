@@ -15,6 +15,7 @@ export default async function handler(req, res) {
 const getUsers = async (req, res) => {
   try {
     const results = await connection.query("SELECT * FROM user");
+    connection.end();
     return res.status(200).json(results);
   } catch (error) {
     return res.status(500).json({ error });
@@ -60,6 +61,7 @@ const saveUser = async (req, res) => {
 
   //check email is in use ?
   const verifExistMail = await connection.query("SELECT * FROM user WHERE email = ?", [email]);
+    connection.end();
   if (verifExistMail.length > 0){
       res.status(409).json({
           error: "Email ya esta siendo utilizado",
@@ -74,12 +76,14 @@ const saveUser = async (req, res) => {
           //CICEDEV-174
           const result = await connection.query("INSERT INTO user ( email, password, name, surname, role) VALUES (?, ?, ?, ?, ?)",
             [ email, hash, name, surname, 4 ]);                      
-            
+          
+          connection.end();  
+          
           const data = {
             email:email,
             password:hash,
           }
-          console.log(data);          
+          
           return res.status(200).json(data);
           
       }catch (error) {
