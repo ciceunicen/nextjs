@@ -6,7 +6,7 @@ export default async function handler(req, res) {
       case "GET":
         return await getUsers(req, res);
       case "POST":
-          return await saveUser(req, res);
+          return await saveUser(req, res);  
       default:
         return res.status(400).send("Metodo no soportado");
     }

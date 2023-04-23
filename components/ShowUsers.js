@@ -41,7 +41,7 @@ export default function ShowUsers(){
                 <td>{user.name}</td>              
                 <td>{user.surname}</td>              
                 <td className={styles.th}>{user.email}</td>
-                <td>{user.role}</td>                
+                <td>{user.role === 2 ? "Admin" : "Usuario"}</td>                
                 <td><ButtonAdmin 
                   key={user.id}
                   id={user.id}
