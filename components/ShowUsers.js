@@ -10,7 +10,7 @@ export default function ShowUsers(){
   useEffect( () => {
     const getData = async () =>{
     const response = await axios.get("/api/usuarios");
-    const users = response.data;
+    const users = response.data;        
     //filter the users that role are admin or users default
     const usersFilter = users.filter(function(user) {
       return (user.role === 2 || user.role === 4); });        
@@ -27,7 +27,10 @@ export default function ShowUsers(){
           <thead>
             <tr>
               <th>Id</th>          
+              <th>Nombre</th>      
+              <th>Apellido</th>      
               <th>Email</th>
+              <th>Rol Actual</th>
               <th>Acciones</th>
             </tr> 
           </thead>
@@ -35,9 +38,18 @@ export default function ShowUsers(){
             {data.map(user => (
               <tr key={user.id} className={styles.row}>
                 <td>{user.id}</td>              
+                <td>{user.name}</td>              
+                <td>{user.surname}</td>              
                 <td className={styles.th}>{user.email}</td>
-                <td><ButtonAdmin key={user.id} id={user.id} role={user.role}>Admin</ButtonAdmin></td>
-              </tr> ))}
+                <td>{user.role}</td>                
+                <td><ButtonAdmin 
+                  key={user.id}
+                  id={user.id}
+                  role={user.role}                  
+                  >
+                </ButtonAdmin></td>
+              </tr> ))
+            }
           </tbody>
         </table>
         </div>

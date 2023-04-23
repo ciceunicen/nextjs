@@ -4,37 +4,28 @@ import { useState, useEffect } from'react';
 
 export default function ButtonAdmin( {id, role}) {
 
-const [config, setConfig] = useState({
-  id: id,
-  role: role
-});
+  const [config, setConfig] = useState({
+    id: id,
+    role: role,
+    className: role === 2 ? styles.buttonAdmin : styles.buttonNoAdmin
+  });
 
-useEffect(()=>{
-  setConfig({id:id, role:role});
-}, [id, role])
+  function toggle(id, role){ 
+    const newRole = config.role === 2 ? 4 : 2;    
+      setConfig({ ...config, role: newRole, className: newRole === 2 ? styles.buttonAdmin : styles.buttonNoAdmin });
+    
+  }
 
-
-
-/* function toggle(id, role){
-    setConfig({
-      id: id,
-      role: role
-    });
-  } */
   return (
     <div>      
         <button type="button"
-          //className={styles.buttonAdmin}
-          key={config.id}
-          //onClick={() => toggle(id, role)}
-        >
-          {/* {role === 0 ? "Cambiar a Admin" : "Quitar Admin" } */}
-          {config.id}, 
-          {config.role}
+          key={config.id}          
+          onClick={toggle}
+          className={config.className}
+        >          
+          {config.role === 2 ? "Quitar Admin" : "Ser Admin"}
         </button>
-      
-      {/* <div style={{ color: 'white' }}>         */}
-      
     </div>
   )
 };
+

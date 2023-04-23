@@ -24,6 +24,24 @@
     text-align: left;
 }
 
+.buttonAdmin{
+    width: 10rem;
+    height: 2rem;
+    border-radius: 8px;
+    border: none;
+    background-color: rgb(80, 25, 28);
+    color:#ffffff;
+}
+
+.buttonNoAdmin{
+    width: 10rem;
+    height: 2rem;
+    border-radius: 8px;
+    border: none;
+    background-color: #245313;
+    color:#ffffff;
+}
+
 
 @media screen and (max-width: 580px){
     .table{
