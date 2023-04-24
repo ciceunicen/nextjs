@@ -58,7 +58,7 @@ export default function Home() {
       }),
     })
     
-    console.log(response.status);
+    console.log(response);
 
     if (response.ok) {           
       router.push("/dashboard");            
