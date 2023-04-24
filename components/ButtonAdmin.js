@@ -3,13 +3,13 @@ import styles from '../styles/Table.module.css';
 import { useState } from'react';
 import axios from 'axios';
 
-export default function ButtonAdmin( {id, role}) {
-
+export default function ButtonAdmin( props ) {
+  
  // Define the initial config object in a constant variable, since it doesn't depend on state
   const initialConfig = {
-    id: id,
-    role: role,
-    className: role === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,
+    id: props.id,
+    role: props.role,
+    className: props.role === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,
   };
 
     // Use initialConfig as the initial state value
@@ -22,19 +22,21 @@ export default function ButtonAdmin( {id, role}) {
     setConfig({
       id: config.id,
       role: newRole,
-      className: newRole === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,
+      className: newRole === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,      
     });
     
+    //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACUTAL
+    props.changeRole(true);
+  
     // Use the id parameter directly, not wrapped in an object
     const res = await axios({
       method: 'put',
-      url: `/api/usuarios/${id}`,
+      url: `/api/usuarios/${props.id}`,
       data:{
         id : config.id,
         role : newRole
       }
-    });
-    console.log(res);
+    });    
   };
 
 

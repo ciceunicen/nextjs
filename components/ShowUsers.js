@@ -20,6 +20,9 @@ export default function ShowUsers(){
   getData(); 
   }, []);  
 
+  //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACTUAL
+  const [update, setUpdate] = useState(); 
+
   return(        
         <>
         <div className={styles.wrapper}>                
@@ -41,13 +44,16 @@ export default function ShowUsers(){
                 <td>{user.name}</td>              
                 <td>{user.surname}</td>              
                 <td className={styles.th}>{user.email}</td>
+                {/* TODO:  se debe actualizar cuando cambia el rol desde el boton*/}
                 <td>{user.role === 2 ? "Admin" : "Usuario"}</td>                
                 <td><ButtonAdmin 
-                  key={user.id}
-                  id={user.id}
-                  role={user.role}                  
-                  >
-                </ButtonAdmin></td>
+                      key={user.id}
+                      id={user.id}
+                      role={user.role}
+                      //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACTUAL
+                      changeRole={update => setUpdate(update)}
+                    />
+                </td>
               </tr> ))
             }
           </tbody>
