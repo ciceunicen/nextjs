@@ -57,8 +57,6 @@ export default function Home() {
         password: data.get('password'),
       }),
     })
-    
-    console.log(response);
 
     if (response.ok) {           
       router.push("/dashboard");            

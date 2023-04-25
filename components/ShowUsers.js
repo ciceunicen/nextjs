@@ -7,22 +7,25 @@ export default function ShowUsers(){
 
   const [data, setData] = useState([]);
 
+  const [order, setOrder] = useState("");
+
+  const handleChange = (newOrder) => {
+    setOrder(Math.random()*newOrder);
+  };
+
   useEffect( () => {
     const getData = async () =>{
-    const response = await axios.get("/api/usuarios");
-    const users = response.data;        
-    //filter the users that role are admin or users default
-    const usersFilter = users.filter(function(user) {
-      return (user.role === 2 || user.role === 4); });        
-    //set the list of users filtered
-    setData(usersFilter);
-  }
+      const response = await axios.get("/api/usuarios");
+      const users = response.data;        
+      //filter the users that role are admin or users default
+      const usersFilter = users.filter(function(user) {
+        return (user.role === 2 || user.role === 4); });        
+      //set the list of users filtered
+      setData(usersFilter);
+    }
   getData(); 
-  }, []);  
-
-  //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACTUAL
-  const [update, setUpdate] = useState(); 
-
+  }, [order]);  
+  
   return(        
         <>
         <div className={styles.wrapper}>                
@@ -43,15 +46,13 @@ export default function ShowUsers(){
                 <td>{user.id}</td>              
                 <td>{user.name}</td>              
                 <td>{user.surname}</td>              
-                <td className={styles.th}>{user.email}</td>
-                {/* TODO:  se debe actualizar cuando cambia el rol desde el boton*/}
+                <td className={styles.th}>{user.email}</td>              
                 <td>{user.role === 2 ? "Admin" : "Usuario"}</td>                
                 <td><ButtonAdmin 
                       key={user.id}
                       id={user.id}
                       role={user.role}
-                      //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACTUAL
-                      changeRole={update => setUpdate(update)}
+                      onChange={handleChange}
                     />
                 </td>
               </tr> ))

@@ -1,4 +1,3 @@
- // Define the initial config object in a constant variable, since it doesn't depend on state
 import styles from '../styles/Table.module.css';
 import { useState } from'react';
 import axios from 'axios';
@@ -12,11 +11,18 @@ export default function ButtonAdmin( props ) {
     className: props.role === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,
   };
 
+  const handleClick = () => {
+    // Update sortOrder state in the child component
+    const newOrder = 1;    
+    props.onChange(newOrder);  
+  };
+
     // Use initialConfig as the initial state value
   const [config, setConfig] = useState(initialConfig);
 
   async function toggle() {
     // Access the current role directly from the config object
+    handleClick();
     const newRole = config.role === 2 ? 4 : 2;
     // Pass the new config object directly to setConfig
     setConfig({
@@ -24,9 +30,6 @@ export default function ButtonAdmin( props ) {
       role: newRole,
       className: newRole === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,      
     });
-    
-    //TODO: Intento que el padre se vuelva a renderizar para actualizar la columna ROL ACUTAL
-    props.changeRole(true);
   
     // Use the id parameter directly, not wrapped in an object
     const res = await axios({
@@ -36,10 +39,8 @@ export default function ButtonAdmin( props ) {
         id : config.id,
         role : newRole
       }
-    });    
+    });      
   };
-
-
 
 return (
     <div>      

@@ -23,13 +23,13 @@ export default async function handler(req, res) {
     }
   };
   const updateUser = async (req, res) => {    
-    try {
-      console.log(req.body)
+    try {      
       await connection.query("UPDATE user SET role = ? WHERE id = ?", [
         req.body.role,        
         req.body.id,
       ]);
-      return res.status(204);
+      connection.end();
+      return res.status(200).json({ message: "Se actualizo correctamente el rol"});
     } catch (error) {
       return res.status(500).json({ message: error.message });
     }
