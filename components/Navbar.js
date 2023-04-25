@@ -33,14 +33,15 @@ export default function Navbar({user, role, name, surname}) {
                 { user } 
             </div>
         </div>
-        <div className={styles.avatarContainer}>
-            {/* la imagen en produccion sera la que elija el usuario y debera almacenarse en la DB (crear atributo para tal fin) */}
+
+        <div className={styles.avatarContainer}>           
             <Image                
-                src={"/avatar" + avatarImageRandom + ".png"}
+                src={"/avatar0.png"}
                 alt="avatar"
                 width={72}
                 height={72}
                 className={styles.avatar}
+                priority
             />
         </div>
         <div className={styles.options}>
@@ -50,22 +51,68 @@ export default function Navbar({user, role, name, surname}) {
             <div className={styles.logout}>
                 <Link href="/" onClick={()=>logout()}>Logout</Link>
             </div>
-            <div className={styles.option_title}>
-                <p>AREA DE USUARIO</p>
-            </div>
-            <ul className={styles.ul}>
-                
-                <div className={styles.li}>
-                    <Link href="#">Proyectos</Link>
-                </div>                
-                
-                {role===1 && 
+
+            {(role===1 ||role===2) && <div className={styles.option_title}>
+                <p>PROYECTOS</p>
+            </div>}
+                {(role===1 ||role===2) && <ul className={styles.ul}>                
                     <div className={styles.li}>
-                        <Link href="/api/usuarios/">Listar Usuarios</Link>
-                    </div>
-                }                
+                        <Link href="#">Listar Proyectos</Link>
+                    </div> 
+                </ul>}
+
+            {(role===1 ||role===2) && <div className={styles.option_title}>
+                <p>EMPRENDEDORES</p>
+            </div>}
+
+                {(role===1 ||role===2) && <ul className={styles.ul}>                
+                    <div className={styles.li}>
+                        <Link href="#">Listar Emprendedores</Link>
+                    </div> 
+                </ul>}
+
+            {(role===1 ||role===2) && 
+                <div className={styles.option_title}>
+                    <p>UTILIDADES</p>
+                </div>}
+            
+            {(role===3 || role===4) && 
+                <div className={styles.option_title}>
+                    <p>AREA DE USUARIO</p>
+                </div>}
+                { (role===1 || role === 2) && 
+                    <ul className={styles.ul}> 
+                        <div className={styles.li}>
+                            <Link href="#">Turnos Solicitados</Link>
+                        </div>
+                    </ul>}
                 
-            </ul>
+                { (role===1 ) && 
+                    <ul className={styles.ul}> 
+                    <div className={styles.li}>
+                        <Link href="#">Listar Usuarios</Link>
+                    </div>
+                    </ul>}
+                
+                { role===3 && 
+                    <ul className={styles.ul}> 
+                        <div className={styles.li}>
+                            <Link href="#">Mis Proyectos</Link>
+                        </div>
+                        <div className={styles.li}>
+                            <Link href="#">Solicitar Entrevista</Link>
+                        </div>                                                
+                    </ul>
+                }                
+
+                { role===4 && 
+                    <ul className={styles.ul}> 
+                        <div className={styles.li}>
+                        {/* Show menu/screen to register as an entrepreneur */}
+                            <Link href="#">Quiero presentar proyecto</Link>
+                        </div>  
+                    </ul>
+                }             
         </div>
     </div>    
     )

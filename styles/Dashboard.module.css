@@ -24,3 +24,12 @@
     height: 100px;
     background-color: rgb(94, 94, 94);
 }
+
+.title{
+    position: absolute;
+    top: 55px;
+    margin-left: 40px;
+    font-size: 25px;
+    color: white;
+    font-weight: bolder;
+}
