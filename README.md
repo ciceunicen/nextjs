@@ -21,6 +21,7 @@ Then, open [http://localhost:3000](http://localhost:3000) with your browser to s
 Features:
 You can create a default user, you can enter your dashboard with username and password through the login.
 The application will keep you informed through its confirmations and error reports.
+If you enter as super administrator you can list and change the role change the role of type users: administrator and default user.
 
 **Use the application safely!**
 When you log in, an encrypted token is generated which will be used to validate the different activities carried out in the app.
