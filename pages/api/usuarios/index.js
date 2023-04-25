@@ -76,14 +76,12 @@ const saveUser = async (req, res) => {
           //CICEDEV-174
           const result = await connection.query("INSERT INTO user ( email, password, name, surname, role) VALUES (?, ?, ?, ?, ?)",
             [ email, hash, name, surname, 4 ]);                      
-          
           connection.end();  
-          
+
           const data = {
             email:email,
             password:hash,
           }
-          
           return res.status(200).json(data);
           
       }catch (error) {
