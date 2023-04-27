@@ -25,14 +25,15 @@ import axios from 'axios';
 */
 export default function ButtonAdmin( props ) {
   
-  const [config, setConfig] = useState(initialConfig);
   
   const initialConfig = {
     id: props.id,
     role: props.role,
     className: props.role === 2 ? styles.buttonAdmin : styles.buttonNoAdmin,
   };
-
+  
+  const [config, setConfig] = useState(initialConfig);
+  
   const handleClick = () => {    
     const newOrder = 1;    
     props.onChange(newOrder);  
