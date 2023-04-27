@@ -64,6 +64,39 @@
   margin: 2rem 0px 0px;  
 }
 
+.passContainer{
+  display: flex;
+  flex-direction: row;  
+  align-items: center;
+}
+
+.passContainer input[type="password"],
+.passContainer input[type="text"]{
+  box-sizing: border-box;
+}
+
+.passwordEye{
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  left: 85%;
+  border: none;
+}
+
+.passwordEye button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
+
+.passwordEyeReg button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
 .input {
   border-radius: 8px;
   height: 30px;

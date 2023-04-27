@@ -38,13 +38,12 @@ export default function Home() {
     password: ''
   });
   
-  const handleChange = (e)=> {  
+  const handleChange = (e)=> {      
     setCredentials({
       ...credentials,
       [e.target.name]: e.target.value
-    });
-  };
-  
+    });    
+  };  
   
   const handleSubmit = async(e)=>{
     e.preventDefault();      
@@ -75,8 +74,18 @@ export default function Home() {
           break;
         }    
       };
-  }
-          
+  }  
+  const [passwordType, setPasswordType] = useState("password");    
+  const togglePassword =()=>{
+    if(passwordType==="password")
+    {
+      setPasswordType("text")
+      return;
+    }
+    setPasswordType("password")
+  }  
+
+
 return (
   <>    
   <main>      
@@ -112,18 +121,47 @@ return (
                     required
                   />
               </div>                                
-                
-              <div className={styles.labInput}>
-                <label className={styles.label} htmlFor="">
+              
+              <label className={styles.label} htmlFor="">
                   Contraseña
-                </label>
+              </label>
+
+              <div className={styles.passContainer}>
                 <input
                   className={styles.input}
-                  type="password"
+                  type={passwordType}
                   name="password"
-                  onChange={handleChange}                 
+                  id="password"
+                  onChange={handleChange}
+                  maxLength={20}               
                   required
                 />
+                <div className={styles.passwordEye}>
+                  <button type='button'
+                    onClick={togglePassword}
+                  >
+                  {passwordType==="password" ? 
+                  <Image
+                    src="/eye_closed.svg"
+                    alt="eye close"
+                    id="eye_closed"
+                    className={styles.PasswordEyeClosed}
+                    width={20}
+                    height={20}
+                    priority 
+                  />
+                  :                                     
+                  <Image
+                    src="/eye_open.svg"
+                    alt="eye open"
+                    id="eye_open"
+                    className={styles.PasswordEyeOpen}
+                    width={20}
+                    height={20}                    
+                    priority 
+                  /> }
+                  </button>
+                </div>
               </div> 
             </div>
               

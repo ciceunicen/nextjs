@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
+import { useState } from 'react';
 import { toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -77,7 +78,6 @@ export default function Register() {
         router.push("/dashboard");
     };
     
-
     const handleSubmit = async(e)=>{
         e.preventDefault();      
         const data = new FormData(e.currentTarget);
@@ -116,9 +116,18 @@ export default function Register() {
             default:           
                 break;
             }    
-    };
-}
+        };
+    }
 
+    const [passwordType, setPasswordType] = useState("password");    
+    const togglePassword =()=>{
+      if(passwordType==="password")
+      {
+        setPasswordType("text")
+        return;
+      }
+      setPasswordType("password")
+    }  
     
 return (
 <>      
@@ -184,19 +193,47 @@ return (
                         />
                     </div>                                
                     
-                    <div className={styles.labInput}>
-                        <label className={styles.label} htmlFor="">
-                        Contraseña
-                        </label>
+                    <label className={styles.label} htmlFor="">
+                    Contraseña
+                    </label>
+
+                    <div className={styles.passContainer}>
                         <input
                             className={styles.input}
-                            type="password"
+                            type={passwordType}
                             name="password"                            
                             id="password_input"
+                            maxLength={20} 
                             required
                         />
-                    </div> 
-
+                     
+                        <div className={styles.passwordEye}>
+                            <button type='button'
+                                onClick={togglePassword}
+                            >
+                            {passwordType==="password" ? 
+                            <Image
+                                src="/eye_closed.svg"
+                                alt="eye close"
+                                id="eye_closed"
+                                className={styles.PasswordEyeClosed}
+                                width={20}
+                                height={20}
+                                priority 
+                            />
+                            :                                     
+                            <Image
+                                src="/eye_open.svg"
+                                alt="eye open"
+                                id="eye_open"
+                                className={styles.PasswordEyeOpen}
+                                width={20}
+                                height={20}                    
+                                priority 
+                            /> }
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
                 <div className={styles.buttons}>                    
