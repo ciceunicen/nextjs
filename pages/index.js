@@ -14,6 +14,15 @@ export default function Home() {
   const router = useRouter();
   const customId = "custom-id-yes";
 
+  const forgotPass = () => {
+    toast.success(`Te enviamos un mail a ${credentials.email} para que generes tu contraseña`, {
+      position: toast.POSITION.TOP_CENTER,
+      toastId: customId,
+      theme: 'colored',
+      draggable : false
+    }); 
+  }
+
   const notifyErrorPass = () => {
     toast.error("Usuario y/o contraseña erroneos", {
       position: toast.POSITION.TOP_CENTER,
@@ -96,10 +105,16 @@ return (
           src="/logo cice con slogan.png"
           alt="CICE Logo"
           className={styles.logo_Cice}
-          width={300}
-          height={150}
+          width={350}
+          height={220}
           priority
           />
+          <div className={styles.info_Dom_Tel_Email}>
+                <p className={styles.p}>Campus Universitario</p>
+                <p className={styles.p}>Paraje Arroyo Seco S/N</p>
+                <p className={styles.p}>0249 438 5522</p>
+                <a href="mailto:info@cice.unicen.edu.ar" className={styles.a}>info@cice.unicen.edu.ar</a>
+          </div>
         </div>
 
         <div className={styles.login_form_container}>
@@ -165,12 +180,8 @@ return (
               </div> 
             </div>
               
-            <div className={styles.forgotPass}>                                    
-              <Link href="/forgotPass" passHref legacyBehavior>
-                <a className={styles.FgPass} href="">
-                    ¿Olvidaste tu contraseña?
-                </a>
-              </Link>                           
+            <div className={styles.forgotPass} onClick={forgotPass}>                                    
+                ¿Olvidaste tu contraseña?
             </div>  
 
             <div className={styles.buttons}>               
