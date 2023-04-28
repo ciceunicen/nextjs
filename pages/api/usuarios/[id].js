@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     switch (req.method) {
       case "GET":
         return await getUser(req, res);
-        case "PUT":
-          return await updateUser(req, res);    
+      case "PUT":
+        return await updateUser(req, res);    
       default:
         return res.status(400).json({ message: "bad request" });
     }

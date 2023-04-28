@@ -1,6 +1,5 @@
 import { Inter } from 'next/font/google'
 import Image from 'next/image'
-import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
 import { useState } from 'react';
@@ -14,13 +13,36 @@ export default function Home() {
   const router = useRouter();
   const customId = "custom-id-yes";
 
+  function validateEmail(email){
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return regex.test(String(email).toLowerCase());
+  }  
+
   const forgotPass = () => {
-    toast.success(`Te enviamos un mail a ${credentials.email} para que generes tu contraseña`, {
-      position: toast.POSITION.TOP_CENTER,
-      toastId: customId,
-      theme: 'colored',
-      draggable : false
-    }); 
+    if (credentials.email!=""){
+      if(validateEmail(credentials.email)){        
+          toast.success(`Te enviamos un mail a ${credentials.email} para que generes tu contraseña`, {
+            position: toast.POSITION.TOP_CENTER,
+            toastId: customId,
+            theme: 'colored',
+            draggable : false
+          });        
+      }else{
+        toast.error("El email tiene un formato invalido", {
+          position: toast.POSITION.TOP_CENTER,
+          toastId: customId,
+          theme: 'colored',
+          draggable : false
+        });  
+      }
+    }else{
+      toast.error("Por favor ingresá el email", {
+        position: toast.POSITION.TOP_CENTER,
+        toastId: customId,
+        theme: 'colored',
+        draggable : false
+      }); 
+    } 
   }
 
   const notifyErrorPass = () => {
