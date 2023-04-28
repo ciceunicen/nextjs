@@ -1,6 +1,16 @@
 import { connection } from "models/db";
 import bcryptjs from "bcryptjs";
 
+/**
+* @author JuanMolfese
+* @function handler 
+* This code defines a default async function named 'handler' that takes in a
+* request and response object. It uses a switch statement to handle HTTP method calls.
+* If the method is GET, it calls a function named 'getUsers', else if the method is POST,
+* it calls a function named 'saveUser', else it sends a 400 status error.
+* @param {*} req 
+* @param {*} res 
+*/
 export default async function handler(req, res) {
     switch (req.method) {
       case "GET":
@@ -11,7 +21,16 @@ export default async function handler(req, res) {
         return res.status(400).send("Metodo no soportado");
     }
 }
-  
+
+/**
+* @author JuanMolfese
+* @function getUsers 
+* The 'getUsers' function retrieves all entries from the 'user' table in a MySQL database
+* using a connection object, sending a 500 status error if there's an error in the process. 
+* If successful, it sends a 200 status response with a JSON object containing the result. 
+* @param {*} req 
+* @param {*} res 
+*/  
 const getUsers = async (req, res) => {
   try {
     const results = await connection.query("SELECT * FROM user");
@@ -22,13 +41,32 @@ const getUsers = async (req, res) => {
   }
 }
 
-//verify email address vality (formatted)
+/**
+* @author JuanMolfese
+* @function validateEmail 
+*The 'validateEmail' function checks the validity of an email address using a regular expression. 
+* @param {*} email 
+*/
 function validateEmail(email){
   const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return regex.test(String(email).toLowerCase());
 }
 
-//Register a new user
+/**
+* @author JuanMolfese
+* @function saveUser 
+* The 'saveUser' function retrieves data from the request body, checks for validity
+* using 'validateEmail' and password length, and checks if both fields are complete. 
+* It queries the MySQL database to check if the email already exists and sends a 409
+* status error if it does. If the email doesn't exist, the password is hashed using 
+* bcryptjs and stored in the database along with the email, name, surname, and role ID. 
+* If successful, it sends a 200 status response with a JSON object containing email and 
+* the hashed password. If there's an error, it sends a 500 status error. 
+* Finally, the functions close the database connection using the .end() method on the connection object after executing
+* their respective queries to prevent resource leaks.
+* @param {*} req 
+* @param {*} res 
+*/
 const saveUser = async (req, res) => {
   
   const { email, password, name, surname} = req.body;

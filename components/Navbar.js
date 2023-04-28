@@ -3,17 +3,19 @@ import Image from 'next/image'
 import Link from 'next/link'
 import axios from 'axios'
 
+/**
+ * @author JuanMolfese
+ * @async @function Navbar 
+ * This function prints a vertical menu on the screen that allows the user to interact with the application
+ * @param {*} 
+ * user, role, name and surname
+ * @returns 
+ */
 export default function Navbar({user, role, name, surname}) {
 
     const logout = async ()=>{
         const response = await axios.post("/api/auth/logout");        
     }
-    
-    //detalle estetico solo con fines de presentacion del dashboard
-    //esta constante pasa un valor entre 0 y 3 para que se seleccione
-    //al azar un avatar en el dashboard. Cuando se implemente esto se debe 
-    //eliminar ya que ira la imagen que seleccione el usuario.
-    const avatarImageRandom = Math.floor(Math.random() * 4);
 
     return(    
     <div className={styles.section}>

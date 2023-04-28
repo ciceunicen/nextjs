@@ -10,32 +10,29 @@ export /* async */ function middleware(request){
             return NextResponse.redirect(new URL("/",request.url));
         }
     }
+   
     /* Para alinearme al esquema de endpoints del equipo movi el contenido que estaba
-    // en /api/auth/register a api/usuarios; por ende deshabilito esta linea del middleware
-        if( request.nextUrl.pathname.includes("/api/usuarios")){
+     en /api/auth/register a api/usuarios; por ende deshabilito esta linea del middleware
+     para permitir el registro, ya que es un proceso donde el futuro usuario carece de un token.
+     
+     if( request.nextUrl.pathname.includes("/api/usuarios")){
         if (jwt === undefined){
             return NextResponse.redirect(new URL("/",request.url));
         }
+    } 
+    */
+
+    /* try{
+        //TODO : se desea verificar CONTENIDO del token, no solo su existencia
+        //no funciona el jwtVerify de jose.
+        const { payload } = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));            
+        return NextResponse.next();
+    }catch(error){
+        console.log(error);
+        return NextResponse.redirect(new URL("/", request.url));
     } */
-        /* try{
-            //TODO : se desea verificar CONTENIDO del token, no solo su existencia
-            //no funciona el jwtVerify de jose.
-            const { payload } = await jwtVerify(jwt, new TextEncoder().encode(process.env.JWT_SECRET));            
-            return NextResponse.next();
-        }catch(error){
-            console.log(error);
-            return NextResponse.redirect(new URL("/", request.url));
-        } */
 
     else{
         return NextResponse.next();
     }
-}
-
-
-/* export const config = {
-    // list of paths to protect. In cases where you want to protect the subpaths, add :path*
-    matcher: ["/dashboard/:path*", "/api/:path*"],
-  };
- */
-  
+}  

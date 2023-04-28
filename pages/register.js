@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import styles from '@/styles/Login.module.css'
 import { useRouter } from "next/router";
+import { useState } from 'react';
 import { toast} from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -77,7 +78,6 @@ export default function Register() {
         router.push("/dashboard");
     };
     
-
     const handleSubmit = async(e)=>{
         e.preventDefault();      
         const data = new FormData(e.currentTarget);
@@ -90,9 +90,8 @@ export default function Register() {
                 email: data.get('email'),
                 password: data.get('password'),
             }),
-        })
+        })        
         
-        console.log(data.get('email'), data.get('password'));
         if (response.ok) {    
             {notifySuccesRegister()};
             registerToLogin(data.get('email'), data.get('password'));
@@ -116,11 +115,18 @@ export default function Register() {
             default:           
                 break;
             }    
-    };
-}
+        };
+    }
 
-
-
+    const [passwordType, setPasswordType] = useState("password");    
+    const togglePassword =()=>{
+      if(passwordType==="password")
+      {
+        setPasswordType("text")
+        return;
+      }
+      setPasswordType("password")
+    }  
     
 return (
 <>      
@@ -133,10 +139,16 @@ return (
             src="/logo cice con slogan.png"
             alt="CICE Logo"
             className={styles.logo_Cice}
-            width={300}
-            height={150}
+            width={350}
+            height={220}
             priority
             />
+            <div className={styles.info_Dom_Tel_Email}>
+                <p className={styles.p}>Campus Universitario</p>
+                <p className={styles.p}>Paraje Arroyo Seco S/N</p>
+                <p className={styles.p}>0249 438 5522</p>
+                <a href="mailto:info@cice.unicen.edu.ar" className={styles.a}>info@cice.unicen.edu.ar</a>
+          </div>
         </div>
 
         <div className={styles.login_form_container}>
@@ -186,19 +198,47 @@ return (
                         />
                     </div>                                
                     
-                    <div className={styles.labInput}>
-                        <label className={styles.label} htmlFor="">
-                        Contraseña
-                        </label>
+                    <label className={styles.label} htmlFor="">
+                    Contraseña
+                    </label>
+
+                    <div className={styles.passContainer}>
                         <input
                             className={styles.input}
-                            type="password"
+                            type={passwordType}
                             name="password"                            
                             id="password_input"
+                            maxLength={20} 
                             required
                         />
-                    </div> 
-
+                     
+                        <div className={styles.passwordEye}>
+                            <button type='button'
+                                onClick={togglePassword}
+                            >
+                            {passwordType==="password" ? 
+                            <Image
+                                src="/eye_closed.svg"
+                                alt="eye close"
+                                id="eye_closed"
+                                className={styles.PasswordEyeClosed}
+                                width={20}
+                                height={20}
+                                priority 
+                            />
+                            :                                     
+                            <Image
+                                src="/eye_open.svg"
+                                alt="eye open"
+                                id="eye_open"
+                                className={styles.PasswordEyeOpen}
+                                width={20}
+                                height={20}                    
+                                priority 
+                            /> }
+                            </button>
+                        </div>
+                    </div>
                 </div>
                 
                 <div className={styles.buttons}>                    
