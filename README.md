@@ -6,13 +6,11 @@ First, clone this repo and **install dependencies** with **npm install**, then r
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 **Remember that the sql server must be running with the db: sistema_gestion**
+
+**To create the database and the tables needed to run the application you have a script in /models/make_dbtables.sql. Finally populate the role table with the last line of the script.**
 
 
 Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
